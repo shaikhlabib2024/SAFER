@@ -43,7 +43,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center gap-3 w-full md:w-auto justify-between md:justify-start">
           <div className="flex items-center gap-2.5">
             <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-teal-600 via-sky-600 to-teal-500 flex items-center justify-center p-1.5 shadow-md shadow-teal-500/25">
-              <img src="/favicon.svg" alt="S.A.F.E.R. Logo" className="w-full h-full object-contain filter drop-shadow" />
+              <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="S.A.F.E.R. Logo" className="w-full h-full object-contain filter drop-shadow" />
             </div>
             <div>
               <div className="flex items-center gap-2">
