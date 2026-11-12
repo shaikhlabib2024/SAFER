@@ -23,6 +23,8 @@ export const AuditReportModal: React.FC<AuditReportModalProps> = ({
   auditLogs,
   region,
 }) => {
+  const [reportDate] = React.useState(() => new Date().toLocaleDateString());
+
   if (!isOpen) return null;
 
   // Compute metrics
@@ -57,10 +59,15 @@ export const AuditReportModal: React.FC<AuditReportModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-slate-900/50 backdrop-blur-xs p-4 overflow-y-auto">
-      <div className="bg-white border border-slate-200 rounded-3xl max-w-3xl w-full shadow-2xl overflow-hidden my-8">
+    <div
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4 overflow-y-auto"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="audit-report-title"
+    >
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl max-w-3xl w-full shadow-2xl overflow-hidden my-8 transition-colors">
         {/* Header */}
-        <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-teal-950 text-white p-6 flex items-start justify-between">
+        <div className="bg-gradient-to-r from-slate-900 via-slate-850 to-teal-950 text-white p-6 flex items-start justify-between">
           <div>
             <div className="flex items-center gap-2 mb-1">
               <span className="px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-300 text-[11px] font-bold border border-teal-500/30">
@@ -68,10 +75,10 @@ export const AuditReportModal: React.FC<AuditReportModalProps> = ({
               </span>
               <span className="text-xs text-slate-400">NASA Space Apps S.A.F.E.R.</span>
             </div>
-            <h2 className="text-lg font-bold">{regionTitle}</h2>
+            <h2 id="audit-report-title" className="text-lg font-bold">{regionTitle}</h2>
             <p className="text-xs text-slate-300 mt-1 flex items-center gap-3">
               <span className="flex items-center gap-1">
-                <Calendar className="w-3.5 h-3.5" /> {new Date().toLocaleDateString()}
+                <Calendar className="w-3.5 h-3.5" /> {reportDate}
               </span>
               <span className="flex items-center gap-1">
                 <Building className="w-3.5 h-3.5" /> Joint Rescue Coordination & Relief Audit
@@ -80,89 +87,90 @@ export const AuditReportModal: React.FC<AuditReportModalProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white transition-all"
+            className="p-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white transition-all cursor-pointer"
+            aria-label="Close Audit Report"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Content Body */}
-        <div className="p-6 space-y-5 max-h-[70vh] overflow-y-auto">
+        <div className="p-6 space-y-5 max-h-[70vh] overflow-y-auto panel-scroll-container">
           {/* KPI Cards */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div className="bg-slate-50 border border-slate-200 rounded-2xl p-3.5 text-center">
-              <span className="text-[11px] text-slate-500 font-semibold block">Places Visited</span>
-              <span className="text-xl font-bold text-slate-900 mt-1 block">
+            <div className="bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-2xl p-3.5 text-center">
+              <span className="text-[11px] text-slate-500 dark:text-slate-400 font-semibold block">Places Visited</span>
+              <span className="text-xl font-bold text-slate-900 dark:text-white mt-1 block">
                 {totalVisited} / {localities.length}
               </span>
-              <span className="text-[10px] text-teal-700 font-bold">
+              <span className="text-[10px] text-teal-700 dark:text-teal-400 font-bold">
                 {totalSecured} Secured (Green)
               </span>
             </div>
 
-            <div className="bg-slate-50 border border-slate-200 rounded-2xl p-3.5 text-center">
-              <span className="text-[11px] text-slate-500 font-semibold block">Total Rescued</span>
-              <span className="text-xl font-bold text-teal-700 mt-1 block">{totalRescued}</span>
-              <span className="text-[10px] text-slate-600 font-medium">Safely Evacuated</span>
+            <div className="bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-2xl p-3.5 text-center">
+              <span className="text-[11px] text-slate-500 dark:text-slate-400 font-semibold block">Total Rescued</span>
+              <span className="text-xl font-bold text-teal-700 dark:text-teal-400 mt-1 block">{totalRescued}</span>
+              <span className="text-[10px] text-slate-600 dark:text-slate-400 font-medium">Safely Evacuated</span>
             </div>
 
-            <div className="bg-slate-50 border border-slate-200 rounded-2xl p-3.5 text-center">
-              <span className="text-[11px] text-slate-500 font-semibold block">Food Rations</span>
-              <span className="text-xl font-bold text-sky-700 mt-1 block">{totalFood}</span>
-              <span className="text-[10px] text-slate-600 font-medium">Relief Packs</span>
+            <div className="bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-2xl p-3.5 text-center">
+              <span className="text-[11px] text-slate-500 dark:text-slate-400 font-semibold block">Food Rations</span>
+              <span className="text-xl font-bold text-sky-700 dark:text-sky-400 mt-1 block">{totalFood}</span>
+              <span className="text-[10px] text-slate-600 dark:text-slate-400 font-medium">Relief Packs</span>
             </div>
 
-            <div className="bg-slate-50 border border-slate-200 rounded-2xl p-3.5 text-center">
-              <span className="text-[11px] text-slate-500 font-semibold block">Water Supplies</span>
-              <span className="text-xl font-bold text-blue-700 mt-1 block">{totalWater}</span>
-              <span className="text-[10px] text-slate-600 font-medium">Purification Kits</span>
+            <div className="bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-2xl p-3.5 text-center">
+              <span className="text-[11px] text-slate-500 dark:text-slate-400 font-semibold block">Water Supplies</span>
+              <span className="text-xl font-bold text-blue-700 dark:text-blue-400 mt-1 block">{totalWater}</span>
+              <span className="text-[10px] text-slate-600 dark:text-slate-400 font-medium">Purification Kits</span>
             </div>
           </div>
 
           {/* Detailed Locality Audit Table */}
           <div>
-            <h3 className="font-bold text-slate-900 text-xs mb-2">Locality-by-Locality Operation Audit Table</h3>
-            <div className="border border-slate-200 rounded-xl overflow-hidden text-xs">
+            <h3 className="font-bold text-slate-900 dark:text-white text-xs mb-2">Locality-by-Locality Operation Audit Table</h3>
+            <div className="border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden text-xs">
               <table className="w-full text-left border-collapse">
-                <thead className="bg-slate-100 text-slate-700 font-bold text-[11px]">
+                <thead className="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-[11px]">
                   <tr>
-                    <th className="p-2.5 border-b border-slate-200">Sector / Locality</th>
-                    <th className="p-2.5 border-b border-slate-200">Current Status</th>
-                    <th className="p-2.5 border-b border-slate-200">Rescued</th>
-                    <th className="p-2.5 border-b border-slate-200">Relief Delivered</th>
-                    <th className="p-2.5 border-b border-slate-200">Responding Unit</th>
+                    <th className="p-2.5 border-b border-slate-200 dark:border-slate-700">Sector / Locality</th>
+                    <th className="p-2.5 border-b border-slate-200 dark:border-slate-700">Current Status</th>
+                    <th className="p-2.5 border-b border-slate-200 dark:border-slate-700">Rescued</th>
+                    <th className="p-2.5 border-b border-slate-200 dark:border-slate-700">Relief Delivered</th>
+                    <th className="p-2.5 border-b border-slate-200 dark:border-slate-700">Responding Unit</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100 font-medium text-slate-700">
+                <tbody className="divide-y divide-slate-100 dark:divide-slate-800 font-medium text-slate-700 dark:text-slate-300">
                   {localities.map((loc) => {
                     let statusLabel = (
-                      <span className="px-2 py-0.5 rounded-full bg-red-100 text-red-700 font-bold text-[10px]">
+                      <span className="px-2 py-0.5 rounded-full bg-red-100 dark:bg-red-950/70 text-red-700 dark:text-red-300 font-bold text-[10px]">
                         Critical (Red)
                       </span>
                     );
                     if (loc.status === 'in-progress') {
                       statusLabel = (
-                        <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 font-bold text-[10px]">
+                        <span className="px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/70 text-amber-700 dark:text-amber-300 font-bold text-[10px]">
                           In-Progress (Yellow)
                         </span>
                       );
                     } else if (loc.status === 'secured') {
                       statusLabel = (
-                        <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 font-bold text-[10px]">
+                        <span className="px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300 font-bold text-[10px]">
                           Secured (Green)
                         </span>
                       );
                     }
 
                     return (
-                      <tr key={loc.id} className="hover:bg-slate-50">
-                        <td className="p-2.5 font-bold text-slate-900">{loc.name}</td>
+                      <tr key={loc.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                        <td className="p-2.5 font-bold text-slate-900 dark:text-white">{loc.name}</td>
                         <td className="p-2.5">{statusLabel}</td>
                         <td className="p-2.5">{loc.rescuedCount} civilians</td>
                         <td className="p-2.5">
                           {loc.reliefPacksDelivered} Food / {loc.waterKitsDelivered} Water
                         </td>
-                        <td className="p-2.5 text-slate-500">{loc.assignedTeam || 'Pending Dispatch'}</td>
+                        <td className="p-2.5 text-slate-500 dark:text-slate-400">{loc.assignedTeam || 'Pending Dispatch'}</td>
                       </tr>
                     );
                   })}
@@ -174,15 +182,15 @@ export const AuditReportModal: React.FC<AuditReportModalProps> = ({
           {/* Recent Operations Log Activity */}
           {auditLogs && auditLogs.length > 0 && (
             <div>
-              <h3 className="font-bold text-slate-900 text-xs mb-2">Recent Timestamped Field Interventions</h3>
-              <div className="space-y-1.5 max-h-36 overflow-y-auto pr-1">
+              <h3 className="font-bold text-slate-900 dark:text-white text-xs mb-2">Recent Timestamped Field Interventions</h3>
+              <div className="space-y-1.5 max-h-36 overflow-y-auto pr-1 panel-scroll-container">
                 {auditLogs.map((log) => (
-                  <div key={log.id} className="p-2 rounded-lg bg-slate-50 border border-slate-200 text-[11px] flex items-center justify-between">
+                  <div key={log.id} className="p-2 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-[11px] flex items-center justify-between">
                     <div>
-                      <span className="font-bold text-slate-900">{log.localityName}</span>: {log.actionTaken}
-                      <span className="text-slate-500 block text-[10px]">{log.teamName} ({log.timestamp})</span>
+                      <span className="font-bold text-slate-900 dark:text-white">{log.localityName}</span>: {log.actionTaken}
+                      <span className="text-slate-500 dark:text-slate-400 block text-[10px]">{log.teamName} ({log.timestamp})</span>
                     </div>
-                    <span className="font-bold text-teal-700">+{log.peopleRescued} rescued</span>
+                    <span className="font-bold text-teal-700 dark:text-teal-400">+{log.peopleRescued} rescued</span>
                   </div>
                 ))}
               </div>
@@ -190,18 +198,18 @@ export const AuditReportModal: React.FC<AuditReportModalProps> = ({
           )}
 
           {/* Audit Timestamp & Integrity Note */}
-          <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-[11px] text-slate-600 leading-relaxed">
+          <div className="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700 text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
             <b>Audit Integrity Verification:</b> All timestamps, GPS markers, and relief distributions are logged 
             using the SAFER operations ledger. Suitable for submission to the Ministry of Disaster Management & Relief, 
-            NGO coalitions, and funding audits.
+            NGO coalitions, and international funding audits.
           </div>
         </div>
 
         {/* Modal Footer with Actions */}
-        <div className="bg-slate-50 px-6 py-4 border-t border-slate-200 flex items-center justify-between">
+        <div className="bg-slate-50 dark:bg-slate-800/80 px-6 py-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
           <button
             onClick={onClose}
-            className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:text-slate-900 transition-all"
+            className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer"
           >
             Close
           </button>
@@ -209,14 +217,14 @@ export const AuditReportModal: React.FC<AuditReportModalProps> = ({
           <div className="flex items-center gap-2">
             <button
               onClick={() => window.print()}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 transition-all"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-600 transition-all cursor-pointer"
             >
               <Printer className="w-3.5 h-3.5" />
               <span>Print SitRep</span>
             </button>
             <button
               onClick={downloadCSV}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-teal-600 hover:bg-teal-700 text-white shadow-xs shadow-teal-600/20 transition-all"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-teal-600 hover:bg-teal-700 text-white shadow-xs shadow-teal-600/20 transition-all cursor-pointer"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Download CSV Audit</span>

@@ -181,8 +181,8 @@ export const SHELTERS: Shelter[] = [
     id: 'bd-sh-1',
     name: 'Feni Govt College High-Ground Shelter',
     region: 'bangladesh',
-    lat: 23.0185,
-    lng: 91.4010,
+    lat: 23.0225,
+    lng: 91.4055,
     elevation: 9.5,
     capacity: 1500,
     currentOccupancy: 820,
@@ -194,8 +194,8 @@ export const SHELTERS: Shelter[] = [
     id: 'bd-sh-2',
     name: 'Chhagalnaiya Govt Pilot High School',
     region: 'bangladesh',
-    lat: 23.0360,
-    lng: 91.5150,
+    lat: 23.0395,
+    lng: 91.5210,
     elevation: 11.2,
     capacity: 900,
     currentOccupancy: 460,
@@ -207,8 +207,8 @@ export const SHELTERS: Shelter[] = [
     id: 'bd-sh-3',
     name: 'Parshuram Degree College Multi-Story Complex',
     region: 'bangladesh',
-    lat: 23.2350,
-    lng: 91.4280,
+    lat: 23.2435,
+    lng: 91.4365,
     elevation: 12.0,
     capacity: 1100,
     currentOccupancy: 950,
@@ -235,8 +235,8 @@ export const SHELTERS: Shelter[] = [
     id: 'np-sh-2',
     name: 'Pulchowk Engineering Campus Evacuation Hall',
     region: 'nepal',
-    lat: 27.6780,
-    lng: 85.3180,
+    lat: 27.6810,
+    lng: 85.3210,
     elevation: 1350,
     capacity: 1200,
     currentOccupancy: 540,
@@ -260,7 +260,7 @@ export const DEMO_EVACUATION_ROUTES: Record<string, EvacuationRoute> = {
       [23.1400, 91.4100], // Elevated Embankment Road
       [23.0900, 91.4050], // High-crest ridge avenue
       [23.0500, 91.4030], // Dry overpass corridor
-      [23.0185, 91.4010], // Shelter arrival (Elev: +9.5m)
+      [23.0225, 91.4055], // Shelter arrival: Feni Govt College (Elev: +9.5m)
     ],
     instructions: [
       {
@@ -330,9 +330,9 @@ export const INITIAL_RELIEF_REQUESTS: ReliefRequest[] = [
   {
     id: 'req-1',
     region: 'bangladesh',
-    localityName: 'Fulgazi Bazar East (Muhuri Basin)',
-    lat: 23.1670,
-    lng: 91.4120,
+    localityName: 'Fulgazi East Basin (Stranded Homesteads)',
+    lat: 23.1580,
+    lng: 91.4220,
     contactNumber: '+880 1819-445566',
     peopleCount: 6,
     hasInjured: false,
@@ -345,9 +345,9 @@ export const INITIAL_RELIEF_REQUESTS: ReliefRequest[] = [
   {
     id: 'req-2',
     region: 'bangladesh',
-    localityName: 'Parshuram Upazila Embankment Breach',
-    lat: 23.2350,
-    lng: 91.4280,
+    localityName: 'Parshuram Muhuri Embankment Breach',
+    lat: 23.2260,
+    lng: 91.4190,
     contactNumber: '+880 1712-889900',
     peopleCount: 4,
     hasInjured: true,
@@ -360,9 +360,9 @@ export const INITIAL_RELIEF_REQUESTS: ReliefRequest[] = [
   {
     id: 'req-3',
     region: 'nepal',
-    localityName: 'Balkhu Low Corridor',
-    lat: 27.6850,
-    lng: 85.2950,
+    localityName: 'Balkhu Low Flood Corridor',
+    lat: 27.6795,
+    lng: 85.2915,
     contactNumber: '+977 9841-234567',
     peopleCount: 5,
     hasInjured: false,

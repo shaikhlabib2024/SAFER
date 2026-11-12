@@ -44,8 +44,13 @@ export const NasaDatasetsModal: React.FC<NasaDatasetsModalProps> = ({
   const isBd = region === 'bangladesh';
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-slate-900/50 backdrop-blur-xs p-4 overflow-y-auto">
-      <div className="bg-white border border-slate-200 rounded-3xl max-w-3xl w-full shadow-2xl overflow-hidden my-8">
+    <div
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4 overflow-y-auto"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="nasa-datasets-title"
+    >
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl max-w-3xl w-full shadow-2xl overflow-hidden my-8 transition-colors">
         {/* Header */}
         <div className="bg-gradient-to-r from-sky-900 via-teal-900 to-slate-900 text-white p-6 flex items-start justify-between">
           <div>
@@ -55,27 +60,28 @@ export const NasaDatasetsModal: React.FC<NasaDatasetsModalProps> = ({
               </span>
               <span className="text-xs text-slate-300">Space Apps Challenge 2026</span>
             </div>
-            <h2 className="text-lg font-bold">NASA Datasets & Scientific Verification</h2>
+            <h2 id="nasa-datasets-title" className="text-lg font-bold">NASA Datasets & Scientific Verification</h2>
             <p className="text-xs text-slate-300 mt-0.5">
               Verified satellite observations for {isBd ? 'Feni & Eastern Bangladesh' : 'Kathmandu Valley, Nepal'}
             </p>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white transition-all"
+            className="p-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white transition-all cursor-pointer"
+            aria-label="Close NASA Datasets"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex border-b border-slate-200 bg-slate-50 px-6 pt-3 gap-2">
+        <div className="flex border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-850 px-6 pt-3 gap-2">
           <button
             onClick={() => setActiveTab('datasets')}
-            className={`flex items-center gap-1.5 px-4 py-2 rounded-t-xl text-xs font-bold transition-all border-b-2 ${
+            className={`flex items-center gap-1.5 px-4 py-2 rounded-t-xl text-xs font-bold transition-all border-b-2 cursor-pointer ${
               activeTab === 'datasets'
-                ? 'bg-white text-teal-800 border-teal-600 shadow-xs'
-                : 'text-slate-500 hover:text-slate-900 border-transparent'
+                ? 'bg-white dark:bg-slate-900 text-teal-800 dark:text-teal-300 border-teal-600 dark:border-teal-400 shadow-xs'
+                : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border-transparent'
             }`}
           >
             <Database className="w-3.5 h-3.5" />
@@ -83,10 +89,10 @@ export const NasaDatasetsModal: React.FC<NasaDatasetsModalProps> = ({
           </button>
           <button
             onClick={() => setActiveTab('live-api')}
-            className={`flex items-center gap-1.5 px-4 py-2 rounded-t-xl text-xs font-bold transition-all border-b-2 ${
+            className={`flex items-center gap-1.5 px-4 py-2 rounded-t-xl text-xs font-bold transition-all border-b-2 cursor-pointer ${
               activeTab === 'live-api'
-                ? 'bg-white text-teal-800 border-teal-600 shadow-xs'
-                : 'text-slate-500 hover:text-slate-900 border-transparent'
+                ? 'bg-white dark:bg-slate-900 text-teal-800 dark:text-teal-300 border-teal-600 dark:border-teal-400 shadow-xs'
+                : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border-transparent'
             }`}
           >
             <Radio className="w-3.5 h-3.5 text-teal-600 animate-pulse" />
@@ -95,10 +101,10 @@ export const NasaDatasetsModal: React.FC<NasaDatasetsModalProps> = ({
         </div>
 
         {/* Modal Body */}
-        <div className="p-6 space-y-4 max-h-[65vh] overflow-y-auto">
+        <div className="p-6 space-y-4 max-h-[65vh] overflow-y-auto panel-scroll-container">
           {activeTab === 'datasets' ? (
             <div className="space-y-3">
-              <p className="text-xs text-slate-600">
+              <p className="text-xs text-slate-600 dark:text-slate-300">
                 SAFER ingests four foundational NASA Earth Observation datasets to calculate flood inundation, ground elevation, and evacuation corridors:
               </p>
 
@@ -106,31 +112,31 @@ export const NasaDatasetsModal: React.FC<NasaDatasetsModalProps> = ({
                 {NASA_DATASETS_REGISTRY.map((ds) => (
                   <div
                     key={ds.id}
-                    className="p-4 rounded-2xl border border-slate-200 bg-slate-50/70 hover:bg-slate-50 transition-all flex flex-col justify-between"
+                    className="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/60 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all flex flex-col justify-between"
                   >
                     <div>
                       <div className="flex items-start justify-between gap-2 mb-1.5">
-                        <span className="font-bold text-slate-900 text-xs">{ds.name}</span>
+                        <span className="font-bold text-slate-900 dark:text-white text-xs">{ds.name}</span>
                         <a
                           href={ds.sourceUrl}
                           target="_blank"
                           rel="noreferrer"
-                          className="text-teal-600 hover:text-teal-800"
+                          className="text-teal-600 dark:text-teal-400 hover:text-teal-800 dark:hover:text-teal-300"
                           title="Open NASA Portal"
                         >
                           <ExternalLink className="w-3.5 h-3.5" />
                         </a>
                       </div>
 
-                      <div className="space-y-1 text-[11px] text-slate-600 mb-2">
+                      <div className="space-y-1 text-[11px] text-slate-600 dark:text-slate-300 mb-2">
                         <div><b>Mission:</b> {ds.mission}</div>
                         <div><b>NASA Center:</b> {ds.nasaCenter}</div>
                         <div><b>Resolution:</b> {ds.resolution}</div>
                         <div><b>Instrument:</b> {ds.sensor}</div>
                       </div>
 
-                      <div className="p-2 rounded-lg bg-white border border-slate-200 text-[11px] text-slate-700 leading-relaxed">
-                        <b className="text-teal-800">How SAFER Uses It:</b> {ds.howWeUseIt}
+                      <div className="p-2 rounded-lg bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 text-[11px] text-slate-700 dark:text-slate-300 leading-relaxed">
+                        <b className="text-teal-800 dark:text-teal-400">How SAFER Uses It:</b> {ds.howWeUseIt}
                       </div>
                     </div>
                   </div>
@@ -139,19 +145,19 @@ export const NasaDatasetsModal: React.FC<NasaDatasetsModalProps> = ({
             </div>
           ) : (
             <div className="space-y-4">
-              <div className="p-4 rounded-2xl bg-teal-50 border border-teal-200 text-xs flex items-center justify-between">
+              <div className="p-4 rounded-2xl bg-teal-50 dark:bg-teal-950/40 border border-teal-200 dark:border-teal-800 text-xs flex items-center justify-between">
                 <div>
-                  <span className="font-bold text-teal-900 block">
+                  <span className="font-bold text-teal-900 dark:text-teal-200 block">
                     Querying NASA Langley Research Center (LaRC) POWER API
                   </span>
-                  <span className="text-teal-700 text-[11px]">
+                  <span className="text-teal-700 dark:text-teal-400 text-[11px]">
                     Target: {isBd ? 'Feni (23.0159°N, 91.3976°E)' : 'Kathmandu (27.7172°N, 85.3240°E)'} | Variable: Precipitation (PRECTOTCORR)
                   </span>
                 </div>
                 <button
                   onClick={executeApiQuery}
                   disabled={loading}
-                  className="px-3 py-1.5 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-xs"
+                  className="px-3 py-1.5 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-xs cursor-pointer"
                 >
                   <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
                   <span>{loading ? 'Querying...' : 'Re-query NASA'}</span>
@@ -161,9 +167,9 @@ export const NasaDatasetsModal: React.FC<NasaDatasetsModalProps> = ({
               {/* Data Display */}
               {apiResult && apiResult.data && (
                 <div className="space-y-3">
-                  <div className="border border-slate-200 rounded-2xl p-4 bg-white shadow-xs">
-                    <h4 className="font-bold text-slate-900 text-xs mb-2 flex items-center gap-1.5">
-                      <CheckCircle className="w-4 h-4 text-emerald-600" />
+                  <div className="border border-slate-200 dark:border-slate-700 rounded-2xl p-4 bg-white dark:bg-slate-800 shadow-xs">
+                    <h4 className="font-bold text-slate-900 dark:text-white text-xs mb-2 flex items-center gap-1.5">
+                      <CheckCircle className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                       <span>NASA Satellite Measured Daily Rainfall (mm/day)</span>
                     </h4>
 
@@ -175,18 +181,18 @@ export const NasaDatasetsModal: React.FC<NasaDatasetsModalProps> = ({
                             key={date}
                             className={`p-2.5 rounded-xl border ${
                               isPeak
-                                ? 'bg-red-50 border-red-300 ring-2 ring-red-400/20'
-                                : 'bg-slate-50 border-slate-200'
+                                ? 'bg-red-50 dark:bg-red-950/50 border-red-300 dark:border-red-800 ring-2 ring-red-400/20'
+                                : 'bg-slate-50 dark:bg-slate-700/60 border-slate-200 dark:border-slate-600'
                             }`}
                           >
-                            <span className="text-[10px] text-slate-500 font-semibold block">
+                            <span className="text-[10px] text-slate-500 dark:text-slate-400 font-semibold block">
                               {date.slice(0, 4)}-{date.slice(4, 6)}-{date.slice(6, 8)}
                             </span>
-                            <span className={`text-base font-bold block mt-0.5 ${isPeak ? 'text-red-700' : 'text-slate-800'}`}>
+                            <span className={`text-base font-bold block mt-0.5 ${isPeak ? 'text-red-700 dark:text-red-300' : 'text-slate-800 dark:text-slate-100'}`}>
                               {val} mm
                             </span>
                             {isPeak && (
-                              <span className="text-[9px] font-bold text-red-600 uppercase">
+                              <span className="text-[9px] font-bold text-red-600 dark:text-red-400 uppercase">
                                 Flood Peak
                               </span>
                             )}
@@ -197,7 +203,7 @@ export const NasaDatasetsModal: React.FC<NasaDatasetsModalProps> = ({
                   </div>
 
                   {/* Raw Endpoint & JSON Snippet */}
-                  <div className="p-3 bg-slate-900 text-slate-200 rounded-2xl text-[11px] font-mono overflow-x-auto space-y-1">
+                  <div className="p-3 bg-slate-900 border border-slate-800 text-slate-200 rounded-2xl text-[11px] font-mono overflow-x-auto space-y-1">
                     <div className="text-slate-400 flex items-center gap-1">
                       <FileCode className="w-3.5 h-3.5 text-teal-400" />
                       <span>NASA Endpoint Queried:</span>
@@ -211,13 +217,13 @@ export const NasaDatasetsModal: React.FC<NasaDatasetsModalProps> = ({
         </div>
 
         {/* Modal Footer */}
-        <div className="bg-slate-50 px-6 py-4 border-t border-slate-200 flex items-center justify-between">
-          <span className="text-xs text-slate-500">
+        <div className="bg-slate-50 dark:bg-slate-800/80 px-6 py-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+          <span className="text-xs text-slate-500 dark:text-slate-400">
             Open-access data provided by NASA Earthdata & GSFC / LaRC
           </span>
           <button
             onClick={onClose}
-            className="px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 text-white transition-all shadow-xs"
+            className="px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 text-white dark:bg-slate-700 dark:hover:bg-slate-600 transition-all shadow-xs cursor-pointer"
           >
             Close Inspector
           </button>

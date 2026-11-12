@@ -61,26 +61,26 @@ export const DemoWalkthroughBar: React.FC<DemoWalkthroughBarProps> = ({
   ];
 
   return (
-    <div className="bg-gradient-to-r from-amber-50 via-sky-50/70 to-teal-50 border border-amber-200/80 rounded-2xl p-3 shadow-sm shrink-0 mb-1">
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-2.5 pb-2 border-b border-amber-200/60">
+    <div className="bg-gradient-to-r from-amber-50 via-sky-50/70 to-teal-50 dark:from-slate-900 dark:via-slate-850 dark:to-slate-900 border border-amber-200/80 dark:border-amber-900/40 rounded-2xl p-3 shadow-xs shrink-0 mb-1 transition-colors">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-2.5 pb-2 border-b border-amber-200/60 dark:border-slate-800">
         <div className="flex items-center gap-2 flex-wrap">
           <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-amber-500 text-white text-xs font-black shadow-xs">
             <Sparkles className="w-3.5 h-3.5 animate-spin-slow" />
             <span>INTERACTIVE DEMO MODE</span>
           </div>
 
-          <span className="text-xs font-bold text-slate-800">
+          <span className="text-xs font-bold text-slate-800 dark:text-slate-200">
             Scenario:
           </span>
 
           {/* Regional Scenario Switcher Pills */}
-          <div className="flex items-center bg-white/90 p-0.5 rounded-xl border border-slate-200 shadow-2xs">
+          <div className="flex items-center bg-white/90 dark:bg-slate-800 p-0.5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-2xs">
             <button
               onClick={() => onSelectRegion('bangladesh')}
               className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
                 selectedRegion === 'bangladesh'
                   ? 'bg-teal-600 text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
+                  : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               <Globe className="w-3 h-3" />
@@ -91,7 +91,7 @@ export const DemoWalkthroughBar: React.FC<DemoWalkthroughBarProps> = ({
               className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
                 selectedRegion === 'nepal'
                   ? 'bg-teal-600 text-white shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
+                  : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               <Globe className="w-3 h-3" />
@@ -125,22 +125,22 @@ export const DemoWalkthroughBar: React.FC<DemoWalkthroughBarProps> = ({
               onClick={() => setActiveStep(st.num)}
               className={`p-2.5 rounded-xl border text-xs cursor-pointer transition-all ${
                 isCurrent
-                  ? 'bg-white border-teal-500 ring-2 ring-teal-500/20 shadow-xs'
-                  : 'bg-white/70 border-slate-200/80 hover:bg-white'
+                  ? 'bg-white dark:bg-slate-800 border-teal-500 ring-2 ring-teal-500/20 shadow-xs'
+                  : 'bg-white/70 dark:bg-slate-800/50 border-slate-200/80 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-750'
               }`}
             >
-              <div className="flex items-center gap-2 font-bold text-slate-900 mb-1">
+              <div className="flex items-center gap-2 font-bold text-slate-900 dark:text-white mb-1">
                 <span
                   className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black ${
-                    isCurrent ? 'bg-teal-600 text-white' : 'bg-slate-200 text-slate-700'
+                    isCurrent ? 'bg-teal-600 text-white' : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300'
                   }`}
                 >
                   {st.num}
                 </span>
                 <span className="truncate">{st.title}</span>
-                <Icon className={`w-3.5 h-3.5 ml-auto ${isCurrent ? 'text-teal-600' : 'text-slate-400'}`} />
+                <Icon className={`w-3.5 h-3.5 ml-auto ${isCurrent ? 'text-teal-600 dark:text-teal-400' : 'text-slate-400'}`} />
               </div>
-              <p className="text-[11px] text-slate-600 leading-snug line-clamp-2">
+              <p className="text-[11px] text-slate-600 dark:text-slate-300 leading-snug line-clamp-2">
                 {st.desc}
               </p>
             </div>
