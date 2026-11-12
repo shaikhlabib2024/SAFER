@@ -71,7 +71,7 @@ export async function fetchLiveNasaPowerData(region: 'bangladesh' | 'nepal') {
       endpoint,
       meta: data.header,
     };
-  } catch (err: any) {
+  } catch {
     // If offline or blocked by CORS, return the authentic cached data from NASA Langley
     const fallbackData = isBd
       ? {

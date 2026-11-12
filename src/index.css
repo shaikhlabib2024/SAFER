@@ -1,10 +1,36 @@
 @import "tailwindcss";
 @import "leaflet/dist/leaflet.css";
 
-/* Modern, comfortable light theme background and typography */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Modern, comfortable light/dark typography */
 :root {
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+/* Font scale accessibility for users aged 10 to 80 */
+html[data-text-size="normal"] {
+  font-size: 16px;
+}
+html[data-text-size="large"] {
+  font-size: 18px;
+}
+html[data-text-size="extra-large"] {
+  font-size: 20px;
+}
+
+/* High Contrast Mode for low-vision or outdoor sunlight */
+html.high-contrast button,
+html.high-contrast input,
+html.high-contrast select,
+html.high-contrast aside,
+html.high-contrast section {
+  border-width: 2px !important;
 }
 
 body {
@@ -14,14 +40,122 @@ body {
   color: #0f172a;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-/* Custom Leaflet Map styling for light, clean aesthetic */
+html.dark body {
+  background: linear-gradient(135deg, #090d16 0%, #0d1527 50%, #080d1a 100%);
+  color: #f8fafc;
+}
+
+/* Custom Leaflet Map styling for light & dark aesthetic */
 .leaflet-container {
   font-family: inherit;
   width: 100%;
   height: 100%;
   border-radius: 0.75rem;
+}
+
+/* Reset Leaflet custom div icon background & border */
+.leaflet-div-icon {
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Marker styling & rock-solid glitch-free hover elevation */
+.custom-shelter-marker,
+.custom-sos-marker,
+.custom-live-user-marker {
+  cursor: pointer;
+  pointer-events: none; /* Ignore clicks/hovers on empty transparent outer box */
+}
+
+/* Enable pointer events strictly on the actual visible badge contents */
+.custom-shelter-marker > div,
+.custom-sos-marker > div,
+.custom-live-user-marker > div {
+  pointer-events: auto;
+  transition: filter 0.18s ease-out;
+  will-change: filter;
+}
+
+/* 
+  PERFECT LEAFLET HOVER FIX:
+  Never use CSS transform: scale() or z-index changes on Leaflet markers!
+  Transform scale deforms the interactive bounding box, causing Leaflet and the browser 
+  to battle over mouseenter/mouseleave at the perimeter (rapid flickering glitch).
+  Instead, we use hardware-accelerated CSS filter illumination and radiant drop-shadows:
+  Instantaneous, beautifully responsive, zero repositioning, and 100% glitch-free.
+*/
+.custom-shelter-marker:hover > div {
+  filter: brightness(1.2) drop-shadow(0 0 10px rgba(16, 185, 129, 0.85)) drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
+}
+
+.custom-sos-marker:hover > div {
+  filter: brightness(1.25) drop-shadow(0 0 12px rgba(239, 68, 68, 0.95)) drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
+}
+
+.custom-live-user-marker:hover > div {
+  filter: brightness(1.22) drop-shadow(0 0 10px rgba(59, 130, 246, 0.85)) drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
+}
+
+/* Prevent Leaflet tooltips from ever capturing mouse events or flickering */
+.leaflet-tooltip {
+  pointer-events: none !important;
+}
+
+/* Position zoom control with margin away from edges */
+.leaflet-bottom.leaflet-right .leaflet-control-zoom {
+  margin-bottom: 24px !important;
+  margin-right: 16px !important;
+}
+
+html.dark .leaflet-container {
+  background: #090d16;
+}
+
+/* Google Maps Dark Mode Tile Inversion & Satellite Styles */
+html.dark .leaflet-tile-pane .google-dark-tiles,
+html.dark .leaflet-tile-pane .google-dark-tiles img,
+html.dark .leaflet-tile-pane img.google-dark-tiles {
+  filter: brightness(0.68) invert(1) contrast(1.18) hue-rotate(180deg) saturate(0.85);
+}
+
+html.dark .leaflet-tile-pane .google-satellite-tiles,
+html.dark .leaflet-tile-pane .google-satellite-tiles img,
+html.dark .leaflet-tile-pane img.google-satellite-tiles {
+  filter: brightness(0.9) contrast(1.1);
+}
+
+html.dark .leaflet-bar a {
+  background-color: #1e293b !important;
+  border-bottom-color: #334155 !important;
+  color: #f1f5f9 !important;
+}
+
+html.dark .leaflet-bar a:hover {
+  background-color: #334155 !important;
+  color: #38bdf8 !important;
+}
+
+html.dark .leaflet-popup-content-wrapper,
+html.dark .leaflet-popup-tip {
+  background: #0f172a !important;
+  color: #f8fafc !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.6);
+  border: 1px solid #334155;
+}
+
+html.dark .leaflet-popup-content {
+  color: #f8fafc !important;
+}
+
+html.dark .leaflet-popup-close-button {
+  color: #94a3b8 !important;
+}
+
+html.dark .leaflet-popup-close-button:hover {
+  color: #f8fafc !important;
 }
 
 /* Pulsing red animation for critical unvisited localities */
@@ -41,10 +175,30 @@ body {
   animation: pulse-critical 2s infinite;
 }
 
-/* Custom scrollbar for clean, sleek UI */
+/* Pulsing beacon animation */
+@keyframes pulse-beacon {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+  }
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 14px rgba(220, 38, 38, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
+  }
+}
+
+.pulse-beacon-btn {
+  animation: pulse-beacon 1.8s infinite;
+}
+
+/* Custom scrollbar for clean UI */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -58,6 +212,14 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: #475569;
 }
 
 /* Independent scrollable panels preventing page bounce */
