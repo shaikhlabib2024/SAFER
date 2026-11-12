@@ -84,7 +84,7 @@ export const VictimSosPanel: React.FC<VictimSosPanelProps> = ({
               Rescue boats and volunteer teams in your sector are alerted.
             </p>
             <div className="p-2.5 bg-white dark:bg-slate-800 rounded-lg border border-emerald-200 dark:border-emerald-700 text-xs text-slate-700 dark:text-slate-300 text-left">
-              <b>Offline SMS Backup:</b> If cellular data fails, send SMS to <b>16206</b>:
+              <b>Offline SMS Backup:</b> If cellular data fails, send SMS to <b>16226</b>:
               <br />
               <code className="text-slate-900 dark:text-white font-bold bg-slate-100 dark:bg-slate-700 px-1 py-0.5 rounded text-[10px] mt-1 block">
                 SAFER {region === 'bangladesh' ? 'FENI' : 'KTM'} {peopleCount}P BOAT

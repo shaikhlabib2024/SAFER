@@ -239,7 +239,7 @@ export const VictimPortal: React.FC<VictimPortalProps> = ({
                 Your emergency signal has been transmitted to the Rescuer Command live queue. Rescuers and boat units are alerted.
               </p>
               <div className="p-2 bg-white rounded-lg border border-emerald-200 text-xs text-slate-700 text-left">
-                <b>Offline SMS Backup:</b> If cellular data fails, SMS <b>16206</b>:
+                <b>Offline SMS Backup:</b> If cellular data fails, SMS <b>16226</b>:
                 <br />
                 <code className="text-slate-900 font-bold bg-slate-100 px-1 py-0.5 rounded text-[10px]">
                   SAFER {region === 'bangladesh' ? 'FENI' : 'KTM'} {peopleCount}P BOAT

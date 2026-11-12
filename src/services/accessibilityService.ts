@@ -159,10 +159,10 @@ export const REGIONAL_HOTLINES: Record<'bangladesh' | 'nepal', EmergencyHotline[
       freeOfCharge: true,
     },
     {
-      number: '16206',
-      displayNumber: '16206',
+      number: '16226',
+      displayNumber: '16226',
       name: 'Disaster Relief & Shelter Coordination',
-      banglaName: 'ত্রাণ ও আশ্রয়কেন্দ্র সমন্বয়',
+      banglaName: 'দুর্যোগ ব্যবস্থাপনা ও ত্রাণ হটলাইন',
       description: 'Request emergency dry food, water kits and boat rescue',
       iconType: 'general',
       freeOfCharge: true,

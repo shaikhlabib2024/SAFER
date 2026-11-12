@@ -213,7 +213,7 @@ export const SimplifiedCrisisView: React.FC<SimplifiedCrisisViewProps> = ({
                   Local rescue speedboats have your GPS coordinates. Stay where you are on high ground.
                 </p>
                 <div className="p-2 bg-white dark:bg-slate-800 rounded-xl text-xs font-mono font-bold text-slate-800 dark:text-slate-200">
-                  SMS Backup: SAFER FENI {peopleCount}P to 16206
+                  SMS Backup: SAFER FENI {peopleCount}P to 16226
                 </div>
                 <button
                   type="button"
